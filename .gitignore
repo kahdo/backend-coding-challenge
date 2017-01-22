@@ -1,0 +1,12 @@
+__pycache__
+*pyc
+.idea/workspace.xml
+.idea/tasks.xml
+.swp
+*sqlite
+reqs/*
+
+# This makes sure the venv/ folder is created to hold the virtualenv but its
+# files won't be tracked
+venv/*
+!venv/.stub

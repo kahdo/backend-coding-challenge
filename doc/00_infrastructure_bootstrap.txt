@@ -1,0 +1,62 @@
+----------------------------------------
+Unbabel Backend Dev Challenge
+----------------------------------------
+Infrastructure needed for the project:
+----------------------------------------
+
+Server : Ubuntu 16.04 LTS at Linode (Linode 2048)
+
+- Cheap and quite capable for this experiment.
+- Am already a Linode customer so setting it up was two clicks away :-)
+- Altough I really like Debian, Ubuntu has newer packages and I'll have a proper environment running in less time.
+- Also, I have a dev Ubuntu 16.04 LTS local virtual fully loaded at home, there will be no environment impedance or software version mismatches or surprises.
+
+Bootstrap confs:
+
+- SSH: Authorized Keys, disable password login.
+- install NGINX, vim-nox, build-essential, virtualenv
+
+----------------------------------------
+Queue System: CELERY
+----------------------------------------
+
+- I have no previous experience with this, reading up.
+	
+- Celery needs a supported queue/ message broker system running.
+
+----------------------------------------
+Queue System dep: Message Broker: RabbitMQ
+----------------------------------------
+
+- I'm going with RabbitMQ since:
+	- it's listed first on the website, and;
+	- is the default backend on the command line tools. Also because;
+	- I have played with ZeroMQ in the past.
+
+- Downloading from rabbimq hq since ubuntu's packages sound outdated.
+	http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.6/rabbitmq-server_3.6.6-1_all.deb
+	dpkg -i
+	apt-get -f install
+	OK running.
+
+"$ celery worker" runs ok with the default rabbitmq's configs, using guest/guest (localhost only) auth pair.
+
+----------------------------------------
+MongoDB
+----------------------------------------
+
+https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/?_ga=1.137215479.695468149.1485043875
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+
+** running, serving on localhost ony.
+
+
+
+

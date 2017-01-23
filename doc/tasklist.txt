@@ -1,0 +1,9 @@
+0 set up basic server infrastructure
+
+1 study about celery and try to use it in a simple way.
+
+2 study about mongo, its concepts and how to use it.
+
+
+
+

@@ -4,6 +4,10 @@
 
 2 study about mongo, its concepts and how to use it.
 
+3 reason about the solution
 
+4 create a simple solution skeleton to help me hash the idea
 
+Create Simple HackerNewsApi Class
+    * Just the bare essentials to get items from it.
 

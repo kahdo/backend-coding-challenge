@@ -27,7 +27,22 @@ Build a basic view to check the status of all translations.
 
 #### Status
 
-0. Set up basic server infrastructure [OK]
-1. Study about Celery and try to use it in a simple way [OK]
-2. Study about Mongo, its concepts and how to use it [OK]
-3. Simple solution analysis and documentation, kickstart the solution's code structure.
+0. Set up basic server infrastructure
+1. Study about Celery and try to use it in a simple way
+2. Study about Mongo, its concepts and how to use it
+3. Simple solution analysis and documentation
+    * Component Diagram / Solution Sketch (doc/01__\*.\* files)
+4. Kickstart the solution's code structure.
+    * Module hierarchy for the solution:, with shared portions.
+        * FlaskApp Runner and View Stubs
+        * *[TODO]* CeleryApp Runner and Task Stubs
+        * Shared Portions
+            * App Bootstrap Code
+            * Database Connector and "Engine" Class (Keep all bare database logic inside one simple structure that is going to be used in all the controllers in both parts of the solution)
+            * Simple Controller Base Classes
+            * Simple Config System
+            * Simple Logging System
+            * Utilities, Base "Loggable" Classes, etc
+    * Scratchpad (test.py)
+    
+    

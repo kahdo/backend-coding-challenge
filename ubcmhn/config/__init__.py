@@ -1,0 +1,2 @@
+from .configloader import CfgClass
+

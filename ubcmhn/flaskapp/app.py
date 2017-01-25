@@ -20,7 +20,7 @@ from ubcmhn.util.flask import get_blueprints_from
 ####
 # Generate "app" and plug all blueprints
 l.debug("Creating Flask \"app\"...")
-app = Flask(__name__)
+flaskapp = Flask(__name__)
 
 
 ####
@@ -30,6 +30,6 @@ l.debug("Plugging Blueprints...")
 
 for bp in get_blueprints_from(flaskappviews):
     l.debug("Registering Blueprint \"{0}\" (url={1})...".format(bp.name, bp.url_prefix))
-    app.register_blueprint(bp)
+    flaskapp.register_blueprint(bp)
 
 l.info("Flask App fully initialized.")

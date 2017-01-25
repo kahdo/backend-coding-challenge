@@ -35,7 +35,7 @@ Build a basic view to check the status of all translations.
 4. Kickstart the solution's code structure.
     * Module hierarchy for the solution:, with shared portions.
         * FlaskApp Runner and View Stubs
-        * *[TODO]* CeleryApp Runner and Task Stubs
+        * CeleryApp Runner and Task Stubs
         * Shared Portions
             * App Bootstrap Code
             * Database Connector and "Engine" Class (Keep all bare database logic inside one simple structure that is going to be used in all the controllers in both parts of the solution)

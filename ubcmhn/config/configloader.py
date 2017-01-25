@@ -76,6 +76,9 @@ class UbcmhnConfigLoader(ConfigLoaderBase):
         self.URLPREFIX = ""
         self.DBCONNECTSTR = ""
         self.DBNAME = ""
+        self.CELERYAPPNAME = ""
+        self.CELERYBROKER = ""
+        self.CELERYBACKEND = ""
 
         # Quickie: Make everything that looks like an int be and int :-)
         for _k in self:

@@ -5,6 +5,7 @@ __pycache__
 .swp
 *sqlite
 reqs/*
+celerybeat-schedule
 
 # This makes sure the venv/ folder is created to hold the virtualenv but its
 # files won't be tracked

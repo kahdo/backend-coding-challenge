@@ -4,6 +4,8 @@ from ubcmhn.util.useful_baseclasses import LoggableBase
 from pymongo import MongoClient
 from pymongo.database import Database
 
+from functools import wraps
+
 
 class DbEngineBase(LoggableBase):
     def __init__(self, _config : CfgClass, *_args, **_kwargs):
@@ -28,6 +30,21 @@ class DbEngineBase(LoggableBase):
         Override this to provide a connection method
         Must return a db-connection-like obj"""
         pass
+
+
+def mongodbmethod(func):
+    """
+    Decorator that automatically passes the project's Database Obj as second argument of
+    a MongoDbEngineBase (or subclass) instance.
+
+    A simple convenience method to save some time and typing (DRY).
+    """
+    @wraps(func)
+    def decorated_dbengine_method(self : MongoDbEngineBase, *args, **kwargs):
+        # Pass the database object as the second argument
+        return func(self, self.getdatabase(), *args, **kwargs)
+    return decorated_dbengine_method
+
 
 class MongoDbEngineBase(DbEngineBase):
     def init(self):

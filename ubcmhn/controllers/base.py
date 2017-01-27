@@ -15,5 +15,12 @@ class BaseController(LoggableBase):
         # get Database Object, and clear the session object.
         self.db = self.__getdatabase()
 
+        # Run custom init.
+        self.init()
+
+    def init(self):
+        """Override this to do additional initialization"""
+        pass
+
     def __getdatabase(self) -> DbEngine:
         return DbEngine(self.config)

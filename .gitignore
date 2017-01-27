@@ -2,6 +2,7 @@ __pycache__
 *pyc
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/vcs.xml
 .swp
 *sqlite
 reqs/*

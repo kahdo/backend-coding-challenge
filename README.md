@@ -44,5 +44,33 @@ Build a basic view to check the status of all translations.
             * Simple Logging System
             * Utilities, Base "Loggable" Classes, etc
     * Scratchpad (test.py)
+5. Implemented Hacker News Item Fetcher with reentrant locks for long-running tasks and support for automatically updating modified entries/comments on Hacker News.
+    * HackerNews Controller
+        * Responsible for everything related to fetching and updating item data from HN.
+    * MongoFunLockController and MongoFunLock
+        * Controller+Decorator solution that adds MongoDB-backed task locking capabilities to Celery-based processes. 
+            * *I have decided to implement this to cover all bases, should the periodic Hacker News item updater task take more than the alotted 10 minutes specified as the update window... if time runs out, the scheduler will cleanly exit and won't trash the queue system or create a loop :-)*
     
+**Current stage**: Celery parallel reading and updating of hacker news items is done.
+
+**Upcoming**: Going to start working on Unbabel Translation API to translate the fetched items.
+
+#### Set up
+
+- Set up a Linux Box (tested on Ubuntu 16.04.x X64)
+- Clone this repo.
+- Have Python3.5 and "virtualenv" tools installed.
+- Read **docs/00__infrastructure_bootstrap.txt** on tips on how to set up the project's system dependencies (mongodb, rabbitmq). Both are used with their default configs, serving unauthenticated connections on localhost only. 
+- From the project root, issue the following shell command to create the virtual environment and install all the project's direct dependencies via pip:
+```$ . doc/virtualenv/create_virtualenv.sh```
     
+#### Running it (celery counterpart only, for now)
+
+- Make sure rabbitmq and mongodb are running.
+- From the project root, run: ```$ ./celeryworker.sh```
+- You should be able to see celery running with some tasks registered, and after 10 minutes , it'll start fetching and updating our local MongoDB with Hacker News Items. 
+
+
+    
+
+

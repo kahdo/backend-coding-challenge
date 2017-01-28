@@ -62,7 +62,7 @@ Build a basic view to check the status of all translations.
 7. Flask Web View of the downloaded data.
     * MainView (index)
     * StoryComments
-8. Website deployed and running at **http://unbabelchallenge.angrybits.org:5000/**
+8. Website deployed and running [HERE](http://unbabelchallenge.angrybits.org:5000/)
     * Since this is just a challenge/toy project, I did not bother to deploy to nginx+uWSGI. We are using Flask's built-in server.
     * Going to leave this running for a few days so you can assess. Also if you need SSH access to the live running app, just ask.
 9. Task completed. 
@@ -92,6 +92,7 @@ Build a basic view to check the status of all translations.
 - Go to project root:
     * Activate the virtual env with```$ . venv/bin/activate ``` 
     * Run: ```$ ./runflask.sh```
+    * This will start a UWSGI server on port 5000
 - Access the webpage at (URL) to view the website. 
 
 

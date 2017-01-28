@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>{{ item['title'] }} [Multilingual Hacker News]</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='storycomments.css')}}">
+</head>
+
+
+<body>
+
+
+<h2>Unbabel Backend Challenge : Multilingual Hacker News!</h2>
+[Lang: {{ currentlang}}] Change Language:
+{% for lang in languagelist %}
+<a class="storylink" href={{url_for('MainPage.storycomments')+'?id={0}&lang={1}'.format(item.item_id,lang)}}>[{{ lang }}]</a>
+{% endfor %}
+
+<br /><br />
+
+
+<table>
+
+    <tr class="athing" id="{{item.id}}">
+      <td class="title"><a href="{{ item['url'] }}" class="storylink">{{ item['title'] }}</a>
+      </td>
+    </tr>
+
+    <tr>
+        <td class="subtext">
+        <span class="score">{{ item['score'] }} points</span> by {{ item.by }}
+        </td>
+    </tr>
+
+    <tr class="spacer" style="height:10px"></tr>
+
+
+</table>
+
+<table border="0" class="comment-tree">
+    <tbody>
+{% for d, c in comments %}
+       <tr class="athing comtr " id="13505501">
+       <table>
+            <td class="ind"><img src="{{url_for('static', filename='s.gif')}}" height="0" width="{{ (d * 35)+10 }}"></td>
+            <td>
+
+             <table border="0">
+                <tbody>
+
+                   <tr>
+                      <td class="default">
+                         <div style="margin-top:2px; margin-bottom:-10px;">
+                             <span class="comhead">
+                                <span class="hnuser">{{ c.by }}</span>
+                            </span>
+                         </div>
+                         <br>
+                         <div class="comment">
+                            <span class="c00">
+                               {{ c.text | safe }}
+                            </span>
+                         </div>
+                      </td>
+
+                   </tr>
+
+                </tbody>
+             </table>
+          </td>
+       </table>
+       <tr class="spacer" style="height:50px"></tr>
+       </tr>
+{% endfor %}
+    </tbody>
+ </table>
+
+
+
+
+
+
+</body>
+
+
+
+</html>

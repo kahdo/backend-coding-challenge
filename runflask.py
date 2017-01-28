@@ -16,4 +16,4 @@ if __name__ == '__main__':
     l = logging.getLogger("UBCMHN Standalone Runner")
     l.info("Running APP from __main__...")
     # Run and serve via Flask's Built-In HTTP Server
-    flaskapp.run()
+    flaskapp.run(host="0.0.0.0")

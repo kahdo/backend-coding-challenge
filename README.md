@@ -11,15 +11,19 @@ Build a basic view to check the status of all translations.
 
 
 #### Requirements 
-* Use a queue system of your liking: 
+* **[Done]** Use a queue system of your liking: 
     * Going with Celery (with RabbitMQ as broker)
-* MongoDB
-* Create a scalable application. 
-* Only use Unbabel's Translation API on sandbox mode
-* Have the news titles translated to 2 languages
-* Have unit tests
-* We dont really care much about CSS but make it so that any developer can understand what you did
-* Page load time shouldn't exceed 2 secs
+    * Had to learn this from scratch, great learning experiment.
+* **[Done]** MongoDB
+    * Had to learn this from scratch, great learning experiment.
+* **[Done]** Create a scalable application. 
+* **[Done]** Only use Unbabel's Translation API on sandbox mode
+* **[Done]** Have the news titles translated to 2 languages
+* **[Not Completed]** Have unit tests
+    * Ran out of time :)
+* **[Done]** We dont really care much about CSS but make it so that any developer can understand what you did
+    * Front is just a simple page comprised of Html/Css ripped from the HackerNews website itself :)
+* **[Done]** Page load time shouldn't exceed 2 secs
 
 #### Resources
 * Unbabel's API: http://developers.unbabel.com/
@@ -54,9 +58,14 @@ Build a basic view to check the status of all translations.
     * Implemented UnbabelTranslationController
     * Implemented UnbabelSimpleApi Class
         * *NOTE: Unbabel-py Python Module is not working with the Unbabel API. I had to implement my own simple component based on Unbabel's sources*
-    * Implemented Celery Scheduled Tasks for monitoring untranslated items.  
-    
-**Current stage**: Flask Web View of the downloaded data.
+    * Implemented Celery Scheduled Tasks for monitoring untranslated items.   
+7. Flask Web View of the downloaded data.
+    * MainView (index)
+    * StoryComments
+8. Website deployed and running [HERE](http://unbabelchallenge.angrybits.org:5000/)
+    * Since this is just a challenge/toy project, I did not bother to deploy to nginx+uWSGI. We are using Flask's built-in server.
+    * Going to leave this running for a few days so you can assess. Also if you need SSH access to the live running app, just ask.
+9. Task completed. 
 
 #### Set up
 

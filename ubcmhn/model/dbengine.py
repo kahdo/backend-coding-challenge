@@ -48,7 +48,7 @@ class UbcmhnDbEngine(MongoDbEngineBase):
         return items.find_one({'_id' : ObjectId(objid_str)})
 
     @mongodbmethod
-    def get_itembyhnid(self, dbo : Database, hackernews_id):
+    def get_itembyhnid(self, dbo : Database, hackernews_id) -> dict:
         items = dbo["items"]
 
         return items.find_one({'item_id' : hackernews_id})

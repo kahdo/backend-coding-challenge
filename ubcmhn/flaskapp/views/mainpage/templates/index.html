@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>Multilingual Hacker News</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index.css')}}">
+</head>
+
+<body>
+
+<h2>Unbabel Backend Challenge : Multilingual Hacker News!</h2>
+[Lang: {{ currentlang}}] Change Language:
+{% for lang in languagelist %}
+<a class="storylink" href={{url_for('MainPage.index')+'?lang={0}'.format(lang)}}>[{{ lang }}]</a>
+{% endfor %}
+
+<br /><br />
+
+
+<table>
+
+    {% for item in d %}
+
+    <tr class="athing" id="{{item.id}}">
+      <td class="title"><a href="{{ item['url'] }}" class="storylink">{{ item['title'] }}</a>
+      </td>
+    </tr>
+
+    <tr>
+        <td class="subtext">
+        <span class="score">{{ item['score'] }} points</span> by {{ item.by }} | <a href="storycomments?id={{ item.item_id }}&lang={{ currentlang }}">Read comments...</a>
+        </td>
+    </tr>
+
+    <tr class="spacer" style="height:10px"></tr>
+
+    {% endfor %}
+
+</table>
+
+
+
+
+</body>
+
+</html>

@@ -21,6 +21,7 @@ from ubcmhn.util.flask import get_blueprints_from
 # Generate "app" and plug all blueprints
 l.debug("Creating Flask \"app\"...")
 flaskapp = Flask(__name__)
+flaskapp.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 ####

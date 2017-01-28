@@ -34,26 +34,19 @@ from ubcmhn.util.hnwrappers import HnWrappedItem
 
 db.deleteall_locks()
 
-from ubcmhn.controllers.mongofunlocks import Lock, MongoFunLockController
+#from ubcmhn.controllers.mongofunlocks import Lock, MongoFunLockController
 from ubcmhn.controllers.unbabel import UnbabelTranslationController
 
-l1 = Lock('hell-debug',expireseconds=70)
+from ubcmhn.controllers.datapresentation import DataPresentationController
+d = DataPresentationController(config)
 
-db.insert_lock(l1)
+#x.GetIndexPageData()
 
-i = MongoFunLockController(config)
+p = db.get_itembyhnid(13506653)
 
+from ubcmhn.util.hnwrappers import TrFieldsByHnItem, ItemTranslationStatus
+f = TrFieldsByHnItem
+s = ItemTranslationStatus
 
-from ubcmhn.util.unbabelsimpleapi import UnbabelSimpleApi
+aa = d.monkey_patch_translation(p, 'pt')
 
-#api = UnbabelApi("backendchallenge", "711b8090e84dcb4981e6381b59757ac5c75ebb26", sandbox=True)
-
-api = UnbabelSimpleApi("backendchallenge", "711b8090e84dcb4981e6381b59757ac5c75ebb26", sandbox=True)
-
-
-#o2 = api.post_translation(text="Hello Unbabel, Will you hire me?", source_language="en", target_language="pt")
-
-
-#from ubcmhn.celeryapp.tasks.unbabel.tasks import request_allitem_translation
-
-#request_allitem_translation()

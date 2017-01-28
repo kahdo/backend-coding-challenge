@@ -33,6 +33,7 @@ def get_visible_top_stories_list():
     print("get_visible_top_stories_list:GO!")
     tasklist_group.apply()
 
+
 @celeryapp.task(ignore_result=True)
 def fetch_hnitem_data_by_hnitemid(hnitemid):
     """Update this item's Hacker News related attributes"""
@@ -42,6 +43,7 @@ def fetch_hnitem_data_by_hnitemid(hnitemid):
     itemobjid = cnt.FetchHnItemDataByHnItemId(hnitemid)
 
     # ... all kids
+    time.sleep(1)
     fetch_hnitem_kids_by_objid.delay(str(itemobjid))
 
 

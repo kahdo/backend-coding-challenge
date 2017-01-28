@@ -66,12 +66,12 @@ def fetch_all_processedtranslations():
 
     # Run the tasklist as a celery-group. wait for completion
     tasklist_group = group(tasklist)
-    tasklist_group.apply()
+    tasklist_group.delay()
 
 
 @celeryapp.task(ignore_result=True)
 def fetch_one_translated_item(hnitem_id, targetlang: str):
 
-    print("Requesting Translation HN={0} to \"{1}\"...".format(hnitem_id, targetlang.upper()))
+    print("Fetching Translation HN={0} to \"{1}\"...".format(hnitem_id, targetlang.upper()))
     cnt = UnbabelTranslationController(config)
     cnt.FetchTranslation(hnitem_id, targetlang)

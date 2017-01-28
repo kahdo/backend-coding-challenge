@@ -1,6 +1,6 @@
+import time
 import datetime
 
-import pymongo
 from bson.objectid import ObjectId
 
 from hackernews import HackerNews
@@ -9,17 +9,20 @@ from ubcmhn.controllers.base import BaseController
 from ubcmhn.util.hnwrappers import HnWrappedItem
 
 
+
 class HackerNewsDataFetchController(BaseController):
     def init(self):
         self.hn = HackerNews()
 
-    def UpdateVisibleTopStories(self, _count=10):
+    def UpdateVisibleTopStories(self, story_count=0):
         l = self.l()
         hn = self.hn
         db = self.db
 
+        real_story_count = max(story_count if story_count else self.config.VISIBLESTORYCOUNT, 1)
+
         # Get storylist
-        storylist = hn.top_stories(_count)
+        storylist = hn.top_stories(real_story_count)
 
         # Generate db document
         visiblestorylist = {
@@ -28,9 +31,10 @@ class HackerNewsDataFetchController(BaseController):
 
         }
 
-        insertid = self.db.insert_visiblestorylist(visiblestorylist)
 
-        l.info("Updated visible story list...")
+        l.warning("Updating visible story list (count={0})...".format(real_story_count))
+        insertid = self.db.insert_visiblestorylist(visiblestorylist)
+        time.sleep(5)
 
         return visiblestorylist['itemlist']
 
@@ -50,7 +54,6 @@ class HackerNewsDataFetchController(BaseController):
             updateablefields = ('title','url','text','score','kids','deleted','dead')
             for keyname in updateablefields:
 
-                # TODO: Remove this, for initial dev and amusement only :)
                 if wrappeddict.get(keyname) != dbitem[keyname]:
                     self.l().warning("[HN={0}] Updating field {1}...".format(wrappeddict['item_id'],keyname))
 

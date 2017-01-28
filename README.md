@@ -50,25 +50,40 @@ Build a basic view to check the status of all translations.
     * MongoFunLockController and MongoFunLock
         * Controller+Decorator solution that adds MongoDB-backed task locking capabilities to Celery-based processes. 
             * *I have decided to implement this to cover all bases, should the periodic Hacker News item updater task take more than the alotted 10 minutes specified as the update window... if time runs out, the scheduler will cleanly exit and won't trash the queue system or create a loop :-)*
+6. Implemented Item Translation using Unbabel API
+    * Implemented UnbabelTranslationController
+    * Implemented UnbabelSimpleApi Class
+        * *NOTE: Unbabel-py Python Module is not working with the Unbabel API. I had to implement my own simple component based on Unbabel's sources*
+    * Implemented Celery Scheduled Tasks for monitoring untranslated items.  
     
-**Current stage**: Celery parallel reading and updating of hacker news items is done.
-
-**Upcoming**: Going to start working on Unbabel Translation API to translate the fetched items.
+**Current stage**: Flask Web View of the downloaded data.
 
 #### Set up
 
-- Set up a Linux Box (tested on Ubuntu 16.04.x X64)
+- Set up a Linux Box (tested on Ubuntu 16.04 x64)
 - Clone this repo.
 - Have Python3.5 and "virtualenv" tools installed.
 - Read **docs/00__infrastructure_bootstrap.txt** on tips on how to set up the project's system dependencies (mongodb, rabbitmq). Both are used with their default configs, serving unauthenticated connections on localhost only. 
 - From the project root, issue the following shell command to create the virtual environment and install all the project's direct dependencies via pip:
 ```$ . doc/virtualenv/create_virtualenv.sh```
     
-#### Running it (celery counterpart only, for now)
+#### Running it 
+
+(Celery counterpart)
 
 - Make sure rabbitmq and mongodb are running.
-- From the project root, run: ```$ ./celeryworker.sh```
+- Go to project root:
+    * Activate the virtual env with```$ . venv/bin/activate ``` 
+    * Run: ```$ ./runcelery.sh```
 - You should be able to see celery running with some tasks registered, and after 10 minutes , it'll start fetching and updating our local MongoDB with Hacker News Items. 
+
+(Flask counterpart)
+
+- Make sure rabbitmq and mongodb are running.
+- Go to project root:
+    * Activate the virtual env with```$ . venv/bin/activate ``` 
+    * Run: ```$ ./runflask.sh```
+- Access the webpage at (URL) to view the website. 
 
 
     

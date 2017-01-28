@@ -80,6 +80,15 @@ class UbcmhnConfigLoader(ConfigLoaderBase):
         self.CELERYBROKER = ""
         self.CELERYBACKEND = ""
 
+        self.UBUN = ""
+        self.UBAK = ""
+
+        self.SRCLANG = ""
+        self.DSTLANG1 = ""
+        self.DSTLANG2 = ""
+
+        self.VISIBLESTORYCOUNT = -1
+
         # Quickie: Make everything that looks like an int be and int :-)
         for _k in self:
             try:

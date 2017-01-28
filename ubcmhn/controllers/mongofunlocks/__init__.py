@@ -1,14 +1,9 @@
 from functools import wraps
+import time
 
 import datetime
 
-import pymongo
-from bson.objectid import ObjectId
-
-from hackernews import HackerNews
-
 from ubcmhn.controllers.base import BaseController
-from ubcmhn.util.hnwrappers import HnWrappedItem
 
 def Lock(lockname, expireseconds=10):
 
@@ -58,7 +53,7 @@ class MongoFunLockController(BaseController):
         return self.db.delete_lockbyname(lockname)
 
 # Decorator to lock a function until the lock in the db is released.
-def MongoFunLock(config, lockname, expireseconds=600):
+def MongoFunLock(config, lockname, expireseconds=600, logrun=True):
 
     def funlock_decorator(fun):
 
@@ -74,8 +69,18 @@ def MongoFunLock(config, lockname, expireseconds=600):
                 # Lock Acquired, call function and then release lock
                 try:
                     rv = fun(*args, **kwargs)
+                except BaseException as e:
+                    cnt.l().error("-------------------------")
+                    cnt.l().error("(MongoFunLocks) Error in function!!!", exc_info=e)
+                    cnt.l().error("-------------------------")
+                    time.sleep(5)
+                    rv = None
                 finally:
+                    # Release Lock
                     cnt.release_lock(lockname)
+                    # Log Task Run
+                    if logrun:
+                        cnt.db.logrun(taskname=fun.__name__)
                     # Return function's original return value.
                     return rv
             else:

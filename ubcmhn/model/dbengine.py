@@ -1,3 +1,4 @@
+import datetime
 from bson import ObjectId
 from pymongo.database import Database
 from pymongo import ASCENDING, DESCENDING
@@ -52,6 +53,46 @@ class UbcmhnDbEngine(MongoDbEngineBase):
 
         return items.find_one({'item_id' : hackernews_id})
 
+    @mongodbmethod
+    def get_allitems(self, dbo : Database) -> HnWrappedItem:
+        items = dbo["items"]
+        return items.find({})
+
+    # Translation X Items
+    @mongodbmethod
+    def get_untranslated_comments(self, dbo : Database, targetlang, exists=False):
+        items = dbo["items"]
+
+        attrname = "text_{0}".format(targetlang)
+
+        # Return list of untranslated COMMENTS in that language
+        return items.find({"item_type": "comment", attrname : {"$exists": exists}})
+
+    @mongodbmethod
+    def get_translated_comments(self, dbo : Database, targetlang):
+        return self.get_untranslated_comments(targetlang, exists=True)
+
+    @mongodbmethod
+    def get_untranslated_stories(self, dbo : Database, targetlang, exists=False):
+        items = dbo["items"]
+
+        attrname = "title_{0}".format(targetlang)
+
+        # Return list of untranslated STORIES in that language
+        return items.find({"item_type": "story", attrname : {"$exists": exists}})
+
+    @mongodbmethod
+    def get_translated_stories(self, dbo : Database, targetlang):
+        return self.get_untranslated_stories(targetlang, exists=True)
+
+    @mongodbmethod
+    def get_translationrequested_items(self, dbo : Database, targetlang):
+        items = dbo["items"]
+
+        attrname = "unbabeljobid_{0}".format(targetlang)
+
+        return items.find({attrname : {'$exists': True}})
+
     # Function Locks
     # (Ex.: to avoid having scheduled/parallel funcs overlap over themselves, trashing)
     @mongodbmethod
@@ -82,6 +123,22 @@ class UbcmhnDbEngine(MongoDbEngineBase):
         return locks.delete_many({'lockname' : lockname}).deleted_count
 
 
+    # Task RunLog
+    @mongodbmethod
+    def logrun(self, dbo: Database, taskname):
+        taskruns = dbo['taskruns']
+
+        data = {
+            'task' : taskname,
+            'time' : datetime.datetime.utcnow()
+        }
+
+        return taskruns.insert_one(data).inserted_id
+
+    @mongodbmethod
+    def listtaskruns(self, dbo: Database, limit=10):
+        taskruns = dbo['taskruns']
+        return taskruns.find().sort({ 'time' : DESCENDING}).limit(limit)
 
 
 
